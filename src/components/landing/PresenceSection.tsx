@@ -60,7 +60,7 @@ export default function PresenceSection() {
       {/* Ambient background aura */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#C83A4B]/[0.03] rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="container-site py-20 md:py-28 relative z-10">
+      <div className="container-site py-6 sm:py-8 md:py-16 relative z-10">
         {/* Split Header Reveal */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <Reveal variant="fade-up" className="max-w-xl">

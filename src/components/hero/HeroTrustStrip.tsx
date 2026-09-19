@@ -28,10 +28,10 @@ export default function HeroTrustStrip({
             <div key={item.label} className="flex flex-col">
               <dt className="sr-only">{item.label}</dt>
               <dd className="flex flex-col">
-                <span className="font-editorial text-[15px] font-normal leading-none tracking-[-0.01em] text-[#F4F1EC] sm:text-[22px] lg:text-[26px]">
+                <span className="font-editorial text-[18px] font-normal leading-none tracking-[-0.01em] text-[#F4F1EC] sm:text-[22px] lg:text-[26px]">
                   {item.value}
                 </span>
-                <span className="mt-1 line-clamp-1 text-[7.5px] font-medium uppercase tracking-[0.05em] text-[#8A8A8A] sm:text-[10.5px] sm:tracking-[0.12em]">
+                <span className="mt-1 hidden text-[10.5px] font-medium uppercase tracking-[0.12em] text-[#8A8A8A] sm:block">
                   {item.label}
                 </span>
               </dd>

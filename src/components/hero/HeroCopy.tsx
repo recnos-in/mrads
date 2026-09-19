@@ -54,8 +54,8 @@ export default function HeroCopy({
       </h1>
 
       {/* Supporting Text */}
-      <Reveal variant="fade-up" delay={0.38}>
-        <p className="line-clamp-2 max-w-[560px] text-[13px] font-normal leading-[1.55] text-[#9A9A9A] sm:line-clamp-none sm:text-[16px] sm:leading-[1.65] lg:text-[17px]">
+      <Reveal variant="fade-up" delay={0.38} className="hidden sm:block">
+        <p className="max-w-[560px] text-[16px] font-normal leading-[1.65] text-[#9A9A9A] lg:text-[17px]">
           {supportingText}
         </p>
       </Reveal>

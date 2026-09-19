@@ -13,7 +13,7 @@ export default function Hero() {
     <section
       id="home"
       aria-label="Mr. Ads Hero"
-      className="relative flex flex-col overflow-hidden border-b border-white/[0.08] bg-[#080808] pb-4 pt-5 text-[#F4F1EC] sm:pb-8 sm:pt-10 lg:pb-10 lg:pt-12"
+      className="relative flex flex-col overflow-hidden border-b border-white/[0.08] bg-[#080808] pb-2 pt-5 text-[#F4F1EC] sm:pb-4 sm:pt-10 lg:pb-6 lg:pt-12"
     >
       {/* Atmospheric Ambient Depth */}
       <div className="pointer-events-none absolute inset-0">
