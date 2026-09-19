@@ -1,5 +1,10 @@
 export type CampaignCategory =
-  'telecom' | 'fashion' | 'automotive' | 'culinary' | 'electronics' | 'hospitality';
+  | 'telecom'
+  | 'fashion'
+  | 'automotive'
+  | 'culinary'
+  | 'electronics'
+  | 'hospitality';
 
 export interface CampaignSpec {
   label: string;

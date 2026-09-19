@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -88,10 +89,16 @@ export default function SiteHeader() {
         }`}
       >
         {/* Left: Minimal & Premium Mr Ads Logo / Wordmark */}
-        <Link href="/" className="flex items-center gap-3.5 group" aria-label="Mr Ads Home">
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-md bg-white/[0.04] border border-white/10 group-hover:border-[#C83A4B]/60 group-hover:bg-[#C83A4B]/10 transition-all duration-200">
-            <span className="font-serif text-[18px] font-bold text-[#F4F1EC] leading-none">M</span>
-            <span className="absolute bottom-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-[#C83A4B] shadow-[0_0_8px_#C83A4B]"></span>
+        <Link href="/" className="flex items-center gap-3 group" aria-label="Mr Ads Home">
+          <div className="relative flex items-center justify-center h-9 px-2 rounded-lg bg-white/[0.04] border border-white/10 group-hover:border-[#C83A4B]/60 group-hover:bg-[#C83A4B]/10 transition-all duration-200">
+            <Image
+              src="/assets/images/app_logo_white.png"
+              alt="MR Logo"
+              width={48}
+              height={25}
+              className="h-5 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+              priority
+            />
           </div>
           <div className="flex flex-col">
             <span className="font-sans font-extrabold text-[17px] tracking-[0.06em] text-[#F4F1EC] uppercase leading-tight group-hover:text-white transition-colors">
@@ -123,13 +130,13 @@ export default function SiteHeader() {
                 <div
                   key={item.to}
                   ref={dropdownRef}
-                  className="relative"
+                  className="relative flex items-center h-full"
                   onMouseEnter={() => setSolutionsDropdown(true)}
                   onMouseLeave={() => setSolutionsDropdown(false)}
                 >
                   <Link
                     href="/solutions"
-                    className={`nav-link-animated inline-flex items-center gap-1.5 py-1 text-[13.5px] font-medium tracking-[0.03em] ${
+                    className={`nav-link-animated inline-flex items-center gap-1.5 py-1 text-[13.5px] font-medium tracking-[0.03em] whitespace-nowrap ${
                       isActive ? 'is-active text-[#F4F1EC]' : 'text-[#929292]'
                     }`}
                   >
@@ -140,8 +147,10 @@ export default function SiteHeader() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="2"
-                      className={`text-[#929292] transition-transform duration-200 ${
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`text-[#929292] shrink-0 transition-transform duration-200 ${
                         solutionsDropdown ? 'rotate-180 text-brand' : ''
                       }`}
                     >
@@ -157,17 +166,20 @@ export default function SiteHeader() {
                         : 'opacity-0 scale-95 pointer-events-none'
                     }`}
                   >
-                    <div className="rounded-xl border border-white/10 bg-[#0D0D0D]/98 backdrop-blur-2xl p-2 shadow-[0_20px_50px_rgba(0,0,0,0.85),0_0_25px_rgba(200,58,75,0.12)]">
+                    <div
+                      style={{ backgroundColor: '#121214' }}
+                      className="rounded-xl border border-white/15 bg-[#121214] p-2 shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_30px_rgba(200,58,75,0.18)]"
+                    >
                       <Link
                         href="/solutions"
-                        className="group flex items-center justify-between px-3.5 py-2.5 rounded-lg text-[13px] font-semibold text-[#F4F1EC] bg-white/[0.04] hover:bg-[#C83A4B]/15 hover:text-white transition-colors"
+                        className="group flex items-center justify-between px-3.5 py-2.5 rounded-lg text-[13px] font-semibold text-[#F4F1EC] bg-white/[0.06] hover:bg-[#C83A4B]/20 hover:text-white transition-colors"
                       >
                         <span>All Solutions Overview</span>
                         <span className="text-[10px] text-brand uppercase font-bold tracking-wider group-hover:translate-x-0.5 transition-transform">
                           Explore →
                         </span>
                       </Link>
-                      <div className="h-px bg-white/[0.06] my-1.5" />
+                      <div className="h-px bg-white/[0.08] my-1.5" />
                       <div className="space-y-0.5">
                         {servicesLinks.map((sub) => {
                           const isSubActive = pathname === sub.to;
@@ -177,8 +189,8 @@ export default function SiteHeader() {
                               href={sub.to}
                               className={`flex items-center justify-between px-3.5 py-2 rounded-lg text-[13px] transition-all duration-150 ${
                                 isSubActive
-                                  ? 'bg-[#C83A4B]/15 text-[#F4F1EC] font-medium pl-4'
-                                  : 'text-[#929292] hover:bg-white/[0.04] hover:text-[#F4F1EC] hover:pl-4'
+                                  ? 'bg-[#C83A4B]/20 text-[#F4F1EC] font-medium pl-4'
+                                  : 'text-[#A0A0A0] hover:bg-white/[0.05] hover:text-[#F4F1EC] hover:pl-4'
                               }`}
                             >
                               <span>{sub.label}</span>
@@ -199,7 +211,7 @@ export default function SiteHeader() {
               <Link
                 key={item.to}
                 href={item.to}
-                className={`nav-link-animated py-1 text-[13.5px] font-medium tracking-[0.03em] ${
+                className={`nav-link-animated inline-flex items-center py-1 text-[13.5px] font-medium tracking-[0.03em] whitespace-nowrap ${
                   isActive ? 'is-active text-[#F4F1EC]' : 'text-[#929292]'
                 }`}
               >

@@ -64,8 +64,7 @@ export default function HomeHero() {
               </h1>
 
               <p className="mt-5 text-[16px] font-medium text-paper sm:text-[17px]">
-                Connecting brands with the right audience through innovative advertising
-                solutions.
+                Connecting brands with the right audience through innovative advertising solutions.
               </p>
               <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-mute sm:text-[15px]">
                 Mr. Ads connects brands with audiences through digital displays, outdoor / moving
@@ -79,7 +78,14 @@ export default function HomeHero() {
                   className="btn-arrow inline-flex items-center justify-center gap-2 rounded-sm bg-brand px-6 py-3.5 text-[14px] font-medium tracking-wide text-paper transition-colors duration-200 hover:bg-brand-hover"
                 >
                   Get a Media Plan
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                  >
                     <path d="M5 12h14" />
                     <path d="m12 5 7 7-7 7" />
                   </svg>
@@ -89,7 +95,14 @@ export default function HomeHero() {
                   className="inline-flex items-center justify-center gap-2 rounded-sm border border-line px-6 py-3.5 text-[14px] font-medium tracking-wide text-paper transition-colors duration-200 hover:border-mute"
                 >
                   Explore Solutions
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.75"
+                  >
                     <path d="M12 5v14" />
                     <path d="m5 12 7 7 7-7" />
                   </svg>
@@ -100,7 +113,14 @@ export default function HomeHero() {
                 {checklist.map((item) => (
                   <span key={item} className="flex items-center gap-2">
                     <span className="flex h-5 w-5 items-center justify-center rounded-full border border-line bg-graphite text-brand">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                      >
                         <path d="M20 6 9 17l-5-5" />
                       </svg>
                     </span>
