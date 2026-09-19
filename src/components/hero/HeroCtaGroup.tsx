@@ -19,11 +19,11 @@ export default function HeroCtaGroup({
 }: HeroCtaGroupProps) {
   return (
     <Reveal variant="fade-up" delay={0.6}>
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-[18px] pt-2">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-3.5">
         {/* Primary CTA Button */}
         <Link
           href={primaryHref}
-          className="btn-sheen group relative inline-flex items-center justify-center gap-3 h-[56px] px-8 rounded-xl bg-[#C83A4B] hover:bg-[#DE4A5C] text-[#F4F1EC] text-[13.5px] sm:text-[14px] font-bold tracking-[0.08em] uppercase transition-all duration-200 shadow-[0_4px_25px_rgba(200,58,75,0.35)] hover:shadow-[0_8px_35px_rgba(222,74,92,0.55)] hover:-translate-y-0.5 active:translate-y-0"
+          className="btn-sheen group relative inline-flex items-center justify-center gap-3 h-[50px] px-7 rounded-xl bg-[#C83A4B] hover:bg-[#DE4A5C] text-[#F4F1EC] text-[13px] sm:text-[13.5px] font-bold tracking-[0.08em] uppercase transition-all duration-200 shadow-[0_4px_25px_rgba(200,58,75,0.35)] hover:shadow-[0_8px_35px_rgba(222,74,92,0.55)] hover:-translate-y-0.5 active:translate-y-0"
         >
           <span>{primaryText}</span>
           <svg
@@ -45,7 +45,7 @@ export default function HeroCtaGroup({
         {/* Secondary CTA Button */}
         <a
           href={secondaryHref}
-          className="group inline-flex items-center justify-center gap-2.5 h-[56px] px-7 rounded-xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 hover:border-white/25 text-[#F4F1EC] text-[13px] sm:text-[13.5px] font-semibold tracking-[0.08em] uppercase transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+          className="group inline-flex items-center justify-center gap-2.5 h-[50px] px-6 rounded-xl bg-white/[0.02] hover:bg-white/[0.06] border border-white/10 hover:border-white/25 text-[#F4F1EC] text-[12.5px] sm:text-[13px] font-semibold tracking-[0.08em] uppercase transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
         >
           <span>{secondaryText}</span>
           <svg
