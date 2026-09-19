@@ -33,7 +33,7 @@ export default function HeroServiceRow() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-black/20 to-transparent" />
-                <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1.5">
+                <div className="absolute top-2 left-2 right-2 hidden items-center justify-between gap-1.5 sm:flex">
                   <span className="rounded-full border border-white/15 bg-black/85 px-2 py-0.5 text-[8.5px] font-bold uppercase tracking-wider text-[#F4F1EC] backdrop-blur-md sm:text-[9.5px]">
                     {service.categoryLabel.split(' ')[0]}
                   </span>
