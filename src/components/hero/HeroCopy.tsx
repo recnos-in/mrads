@@ -26,22 +26,22 @@ export default function HeroCopy({
   proofPoints,
 }: HeroCopyProps) {
   return (
-    <div className="flex w-full max-w-[680px] flex-col items-start gap-6 lg:gap-7">
+    <div className="flex w-full max-w-[680px] flex-col items-start gap-3.5 sm:gap-6 lg:gap-7">
       {/* Eyebrow Beacon */}
       <Reveal variant="fade-up" delay={0.05}>
-        <span className="inline-flex items-center gap-2.5 rounded-full border border-white/[0.10] bg-white/[0.03] px-3.5 py-1.5 backdrop-blur-sm">
-          <span className="relative flex h-1.5 w-1.5">
+        <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.10] bg-white/[0.03] px-3 py-1 backdrop-blur-sm sm:gap-2.5 sm:px-3.5 sm:py-1.5">
+          <span className="relative flex h-1.5 w-1.5 shrink-0">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#DE4A5C] opacity-75" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#C83A4B]" />
           </span>
-          <span className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#B4B4B4] sm:text-[11px]">
+          <span className="whitespace-nowrap text-[8.5px] font-bold uppercase tracking-[0.14em] text-[#B4B4B4] sm:text-[10.5px] sm:tracking-[0.2em] lg:text-[11px]">
             {eyebrow}
           </span>
         </span>
       </Reveal>
 
       {/* Main Headline - Line by Line Cinematic Reveal */}
-      <h1 className="font-editorial text-[40px] font-normal leading-[1.04] tracking-[-0.02em] text-[#F4F1EC] sm:text-[52px] md:text-[60px] xl:text-[68px]">
+      <h1 className="font-editorial text-[30px] font-normal leading-[1.06] tracking-[-0.02em] text-[#F4F1EC] sm:text-[52px] md:text-[60px] xl:text-[68px]">
         <Reveal variant="fade-up" delay={0.14}>
           <span className="block">{headlineLine1}</span>
         </Reveal>
@@ -55,7 +55,7 @@ export default function HeroCopy({
 
       {/* Supporting Text */}
       <Reveal variant="fade-up" delay={0.38}>
-        <p className="max-w-[560px] text-[15px] font-normal leading-[1.65] text-[#9A9A9A] sm:text-[16px] lg:text-[17px]">
+        <p className="line-clamp-2 max-w-[560px] text-[13px] font-normal leading-[1.55] text-[#9A9A9A] sm:line-clamp-none sm:text-[16px] sm:leading-[1.65] lg:text-[17px]">
           {supportingText}
         </p>
       </Reveal>

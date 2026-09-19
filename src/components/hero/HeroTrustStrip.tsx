@@ -23,15 +23,15 @@ export default function HeroTrustStrip({
   return (
     <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20">
       <Reveal variant="fade-up" delay={0.1}>
-        <dl className="grid grid-cols-2 gap-x-8 gap-y-3 border-y border-white/[0.08] py-3 sm:grid-cols-4 sm:gap-x-12">
+        <dl className="grid grid-cols-4 gap-x-2.5 gap-y-3 border-y border-white/[0.08] py-2.5 sm:gap-x-12 sm:py-3">
           {items.map((item) => (
             <div key={item.label} className="flex flex-col">
               <dt className="sr-only">{item.label}</dt>
               <dd className="flex flex-col">
-                <span className="font-editorial text-[22px] font-normal leading-none tracking-[-0.01em] text-[#F4F1EC] sm:text-[26px]">
+                <span className="font-editorial text-[15px] font-normal leading-none tracking-[-0.01em] text-[#F4F1EC] sm:text-[22px] lg:text-[26px]">
                   {item.value}
                 </span>
-                <span className="mt-1 text-[10.5px] font-medium uppercase tracking-[0.12em] text-[#8A8A8A]">
+                <span className="mt-1 line-clamp-1 text-[7.5px] font-medium uppercase tracking-[0.05em] text-[#8A8A8A] sm:text-[10.5px] sm:tracking-[0.12em]">
                   {item.label}
                 </span>
               </dd>

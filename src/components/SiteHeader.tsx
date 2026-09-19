@@ -266,7 +266,7 @@ export default function SiteHeader() {
           {/* Mobile Media Plan compact button */}
           <Link
             href="/contact"
-            className="btn-sheen sm:hidden inline-flex items-center justify-center px-3.5 py-2 rounded-lg bg-[#C83A4B] text-[#F4F1EC] text-[12px] font-semibold"
+            className="btn-sheen sm:hidden inline-flex items-center justify-center whitespace-nowrap px-3 py-2 rounded-lg bg-[#C83A4B] text-[#F4F1EC] text-[11px] font-semibold leading-none"
           >
             Media Plan
           </Link>

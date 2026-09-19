@@ -9,7 +9,7 @@ import FinalCta from '@/components/FinalCta';
 
 export default function HomePage() {
   return (
-    <TargetShell>
+    <TargetShell reserveMobileCtaBar>
       {/* 1. Hero: Core proposition, trust metrics & interactive moving channels showcase */}
       <Hero />
 

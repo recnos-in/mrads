@@ -20,12 +20,12 @@ export default function HeroCtaGroup({
 }: HeroCtaGroupProps) {
   return (
     <Reveal variant="fade-up" delay={0.54} className="w-full lg:w-auto">
-      <div className="flex w-full flex-col items-stretch gap-3.5 lg:items-end">
-        <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-3.5">
+      <div className="flex w-full flex-col items-stretch gap-2 sm:gap-3.5 lg:items-end">
+        <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-3.5">
           {/* Primary CTA Button */}
           <a
             href={primaryHref}
-            className="btn-sheen group relative inline-flex h-[52px] items-center justify-center gap-3 rounded-xl bg-[#C83A4B] px-7 text-[13px] font-bold uppercase tracking-[0.08em] text-[#F4F1EC] shadow-[0_4px_25px_rgba(200,58,75,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#DE4A5C] hover:shadow-[0_8px_35px_rgba(222,74,92,0.55)] active:translate-y-0"
+            className="btn-sheen group relative inline-flex h-11 items-center justify-center gap-3 rounded-xl bg-[#C83A4B] px-7 text-[12px] font-bold uppercase tracking-[0.08em] text-[#F4F1EC] shadow-[0_4px_25px_rgba(200,58,75,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#DE4A5C] hover:shadow-[0_8px_35px_rgba(222,74,92,0.55)] active:translate-y-0 sm:h-[52px] sm:text-[13px]"
           >
             <span>{primaryText}</span>
             <svg
@@ -48,7 +48,7 @@ export default function HeroCtaGroup({
           {/* Secondary CTA Button */}
           <a
             href={secondaryHref}
-            className="group inline-flex h-[52px] items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.02] px-6 text-[12.5px] font-semibold uppercase tracking-[0.08em] text-[#F4F1EC] transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] active:translate-y-0"
+            className="group inline-flex h-11 items-center justify-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.02] px-6 text-[11.5px] font-semibold uppercase tracking-[0.08em] text-[#F4F1EC] transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] active:translate-y-0 sm:h-[52px] sm:text-[12.5px]"
           >
             <span>{secondaryText}</span>
             <svg
@@ -70,7 +70,7 @@ export default function HeroCtaGroup({
         </div>
 
         {/* Reassurance Microcopy */}
-        <span className="text-[11.5px] font-medium tracking-[0.02em] text-[#7A7A7A] lg:text-right">
+        <span className="text-[10px] font-medium tracking-[0.02em] text-[#7A7A7A] sm:text-[11.5px] lg:text-right">
           {responseNote}
         </span>
       </div>

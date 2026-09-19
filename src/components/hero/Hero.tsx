@@ -5,6 +5,7 @@ import HeroCopy from './HeroCopy';
 import HeroCtaGroup from './HeroCtaGroup';
 import HeroServiceRow from './HeroServiceRow';
 import HeroTrustStrip from './HeroTrustStrip';
+import MobileCtaBar from './MobileCtaBar';
 import ScrollIndicator from './ScrollIndicator';
 
 export default function Hero() {
@@ -12,7 +13,7 @@ export default function Hero() {
     <section
       id="home"
       aria-label="Mr. Ads Hero"
-      className="relative flex flex-col overflow-hidden border-b border-white/[0.08] bg-[#080808] pb-6 pt-8 text-[#F4F1EC] sm:pb-8 sm:pt-10 lg:pb-10 lg:pt-12"
+      className="relative flex flex-col overflow-hidden border-b border-white/[0.08] bg-[#080808] pb-4 pt-5 text-[#F4F1EC] sm:pb-8 sm:pt-10 lg:pb-10 lg:pt-12"
     >
       {/* Atmospheric Ambient Depth */}
       <div className="pointer-events-none absolute inset-0">
@@ -23,17 +24,17 @@ export default function Hero() {
       </div>
 
       {/* Hero Core: Headline & Description on the left, Action Buttons anchored to the right on large screens */}
-      <div className="relative z-10 mx-auto mb-8 w-full max-w-[1600px] px-6 sm:mb-10 sm:px-10 lg:mb-12 lg:px-16 xl:px-20">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+      <div className="relative z-10 mx-auto mb-5 w-full max-w-[1600px] px-6 sm:mb-10 sm:px-10 lg:mb-12 lg:px-16 xl:px-20">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <HeroCopy />
-          <div className="w-full flex-shrink-0 lg:mb-2 lg:w-auto">
+          <div className="hidden w-full flex-shrink-0 sm:block lg:mb-2 lg:w-auto">
             <HeroCtaGroup secondaryHref="#presence" secondaryText="EXPLORE OUR NETWORK" />
           </div>
         </div>
       </div>
 
       {/* Network Numbers & Audience Context */}
-      <div className="relative z-10 mb-8 sm:mb-10 lg:mb-12">
+      <div className="relative z-10 mb-5 sm:mb-10 lg:mb-12">
         <HeroTrustStrip />
       </div>
 
@@ -43,9 +44,12 @@ export default function Hero() {
       </div>
 
       {/* Bottom Centered Scroll Indicator */}
-      <div className="relative z-10 flex justify-center pt-6">
+      <div className="relative z-10 hidden justify-center pt-6 sm:flex">
         <ScrollIndicator />
       </div>
+
+      {/* Mobile-only Bottom Drawer CTA */}
+      <MobileCtaBar secondaryHref="#presence" secondaryText="Explore Network" />
     </section>
   );
 }
