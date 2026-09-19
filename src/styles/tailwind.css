@@ -280,6 +280,13 @@
   animation-play-state: paused;
 }
 
+/* Paused state driven by the showcase's Pause/Resume control.
+   (Tailwind's own .animate-none only sets animation-name, so it cannot
+   stop an animation declared in the base layer.) */
+.animate-marquee-paused {
+  animation-play-state: paused !important;
+}
+
 /* Cinematic Billboard Zoom Transitions */
 @keyframes billboard-zoom-push-in {
   0% {
@@ -647,6 +654,9 @@ details[open] .faq-plus {
   .animate-blink,
   .animate-float,
   .animate-marquee,
+  .animate-marquee-ltr,
+  .animate-marquee-ltr-slow,
+  .animate-marquee-ltr-fast,
   .animate-slow-ken-burns,
   .animate-specular-sweep,
   .animate-ad-fade-up,

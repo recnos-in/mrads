@@ -5,28 +5,23 @@ import Link from 'next/link';
 import {
   Sparkles,
   ArrowRight,
+  CheckCircle2,
+  Maximize2,
+  X,
+  ExternalLink,
+  Radio,
+  Layers,
   Tv,
   Zap,
   Code2,
   Bus,
   Film,
   Gift,
-  CheckCircle2,
-  Layers,
-  Pause,
-  Play,
-  Maximize2,
-  X,
-  ExternalLink,
-  Flame,
-  Radio,
 } from 'lucide-react';
 import { PITCH_DECK_SERVICES, PitchDeckService } from '@/data/pitchDeckServices';
 
 export default function MovingServicesShowcase() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
-  const [speed, setSpeed] = useState<'normal' | 'slow' | 'fast'>('normal');
-  const [isPaused, setIsPaused] = useState<boolean>(false);
   const [selectedService, setSelectedService] = useState<PitchDeckService | null>(null);
 
   // Filter services based on tab
@@ -35,68 +30,19 @@ export default function MovingServicesShowcase() {
       ? PITCH_DECK_SERVICES
       : PITCH_DECK_SERVICES.filter((s) => s.category === activeCategory);
 
-  // Group services for dual-lane rolling showcase
-  // Lane 1: Major focus on Display Ads & Quick Commerce
-  const lane1Services = PITCH_DECK_SERVICES.filter(
-    (s) => s.category === 'display' || s.category === 'quick-commerce'
-  );
-
-  // Lane 2: Major focus on Building Software & Tech + Transit, Creative, Gifting
-  const lane2Services = PITCH_DECK_SERVICES.filter(
-    (s) =>
-      s.category === 'software-tech' ||
-      s.category === 'transit' ||
-      s.category === 'content-video' ||
-      s.category === 'corporate-gifting'
-  );
-
-  const countByCategory = (category: PitchDeckService['category']) =>
-    PITCH_DECK_SERVICES.filter((s) => s.category === category).length;
+  // Ensure enough items in the track for seamless looping
+  const repeatCount = Math.max(2, Math.ceil(8 / Math.max(filteredServices.length, 1)));
+  const rollingItems = Array(repeatCount).fill(filteredServices).flat();
 
   const categories = [
-    { id: 'all', label: 'All Solutions', icon: Layers, count: PITCH_DECK_SERVICES.length },
-    {
-      id: 'display',
-      label: 'Display Advertising (DOOH)',
-      icon: Tv,
-      count: countByCategory('display'),
-      highlight: true,
-    },
-    {
-      id: 'quick-commerce',
-      label: 'Quick Commerce & Dark Stores',
-      icon: Zap,
-      count: countByCategory('quick-commerce'),
-      highlight: true,
-    },
-    {
-      id: 'software-tech',
-      label: 'Software, Tech & AI',
-      icon: Code2,
-      count: countByCategory('software-tech'),
-      highlight: true,
-    },
-    { id: 'transit', label: 'Transit & Fleet', icon: Bus, count: countByCategory('transit') },
-    {
-      id: 'content-video',
-      label: 'Video & Creative',
-      icon: Film,
-      count: countByCategory('content-video'),
-    },
-    {
-      id: 'corporate-gifting',
-      label: 'Corporate Gifting',
-      icon: Gift,
-      count: countByCategory('corporate-gifting'),
-    },
+    { id: 'all', label: 'All Channels', icon: Layers },
+    { id: 'display', label: 'Display DOOH', icon: Tv },
+    { id: 'quick-commerce', label: 'Quick Commerce', icon: Zap },
+    { id: 'software-tech', label: 'Software & AI', icon: Code2 },
+    { id: 'transit', label: 'Transit & Fleet', icon: Bus },
+    { id: 'content-video', label: 'Video & Creative', icon: Film },
+    { id: 'corporate-gifting', label: 'Corporate Gifting', icon: Gift },
   ];
-
-  const getSpeedClass = () => {
-    if (isPaused) return 'animate-none';
-    if (speed === 'slow') return 'animate-marquee-ltr-slow';
-    if (speed === 'fast') return 'animate-marquee-ltr-fast';
-    return 'animate-marquee-ltr';
-  };
 
   return (
     <section
@@ -109,95 +55,38 @@ export default function MovingServicesShowcase() {
 
       <div className="container-site relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-semibold text-brand tracking-widest uppercase mb-4">
-              <Radio size={12} className="text-brand animate-pulse" />
-              <span>Full-Service Advertising Network</span>
-            </div>
-            <h2 className="font-serif text-[32px] sm:text-[44px] lg:text-[48px] leading-tight tracking-tight text-paper font-normal">
-              One Integrated Partner. <br />
-              <span className="text-brand font-serif italic">Every Channel You Need.</span>
-            </h2>
-            <p className="mt-4 text-[15px] sm:text-[16px] leading-relaxed text-mute">
-              Explore every channel we run — rolling live across{' '}
-              <strong className="text-paper font-semibold">Display DOOH screens</strong>,{' '}
-              <strong className="text-paper font-semibold">Quick Commerce dark stores</strong>, and{' '}
-              <strong className="text-paper font-semibold">Software & AI Tech development</strong>.
-            </p>
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 text-[11px] font-semibold text-brand tracking-widest uppercase mb-4">
+            <Radio size={12} className="text-brand animate-pulse" />
+            <span>Full-Service Network</span>
           </div>
-
-          {/* Interactive Play/Pause & Speed Controller */}
-          <div className="flex flex-wrap items-center gap-3 p-2 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-md self-start lg:self-end">
-            <button
-              onClick={() => setIsPaused(!isPaused)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[12px] font-medium transition-all ${
-                isPaused
-                  ? 'bg-brand text-white shadow-md shadow-brand/30'
-                  : 'bg-white/[0.06] text-paper hover:bg-white/10'
-              }`}
-              title={isPaused ? 'Resume left-to-right roll' : 'Pause movement'}
-            >
-              {isPaused ? <Play size={13} /> : <Pause size={13} />}
-              <span>{isPaused ? 'Resume Roll' : 'Pause'}</span>
-            </button>
-
-            <div className="h-4 w-px bg-white/10 hidden sm:block" />
-
-            <div className="flex items-center gap-1 text-[11px] text-mute">
-              <span>Speed:</span>
-              {(['slow', 'normal', 'fast'] as const).map((s) => (
-                <button
-                  key={s}
-                  onClick={() => {
-                    setSpeed(s);
-                    setIsPaused(false);
-                  }}
-                  className={`px-2.5 py-1 rounded-lg capitalize transition-all ${
-                    speed === s && !isPaused
-                      ? 'bg-white/20 text-white font-semibold'
-                      : 'hover:bg-white/[0.06] text-mute hover:text-paper'
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
-          </div>
+          <h2 className="font-serif text-[32px] sm:text-[44px] lg:text-[48px] leading-tight tracking-tight text-paper font-normal">
+            One Integrated Partner. <br />
+            <span className="text-brand font-serif italic">Every Channel You Need.</span>
+          </h2>
+          <p className="mt-4 text-[15px] sm:text-[16px] leading-relaxed text-mute">
+            Explore our end-to-end advertising network — spanning Display DOOH screens, Quick Commerce dark stores, and Software & AI solutions.
+          </p>
         </div>
 
-        {/* Category Navigation Pills */}
-        <div className="mt-10 flex items-center gap-2 overflow-x-auto pb-3 scrollbar-none no-scrollbar">
+        {/* Simplified Category Filter Pills */}
+        <div className="mt-8 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
           {categories.map((cat) => {
             const Icon = cat.icon;
             const isActive = activeCategory === cat.id;
             return (
               <button
                 key={cat.id}
+                type="button"
                 onClick={() => setActiveCategory(cat.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-[13px] font-medium whitespace-nowrap transition-all duration-200 border ${
+                className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[12.5px] font-medium whitespace-nowrap transition-all duration-200 ${
                   isActive
-                    ? 'bg-brand text-white border-brand shadow-lg shadow-brand/25 scale-[1.02]'
-                    : cat.highlight
-                      ? 'bg-white/[0.04] text-paper border-white/[0.12] hover:border-brand/50 hover:bg-white/[0.08]'
-                      : 'bg-white/[0.02] text-mute border-white/[0.06] hover:text-paper hover:bg-white/[0.05]'
+                    ? 'border-brand bg-brand text-white shadow-lg shadow-brand/20'
+                    : 'border-white/10 bg-white/[0.03] text-mute hover:border-white/20 hover:text-paper hover:bg-white/[0.06]'
                 }`}
               >
-                <Icon
-                  size={14}
-                  className={isActive ? 'text-white' : cat.highlight ? 'text-brand' : 'text-mute'}
-                />
+                <Icon size={13} className={isActive ? 'text-white' : 'text-mute'} />
                 <span>{cat.label}</span>
-                <span
-                  className={`ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold ${
-                    isActive ? 'bg-black/40 text-white' : 'bg-white/[0.08] text-mute'
-                  }`}
-                >
-                  {cat.count}
-                </span>
-                {cat.highlight && !isActive && (
-                  <Flame size={12} className="text-brand animate-pulse -ml-0.5" />
-                )}
               </button>
             );
           })}
@@ -205,93 +94,22 @@ export default function MovingServicesShowcase() {
       </div>
 
       {/* ========================================================================= */}
-      {/* ROLLING MARQUEE TRACKS (LEFT TO RIGHT / ROLE FROM LEFT TO RIGHT)          */}
+      {/* SINGLE ROLLING ROW — FILTERED BY THE ACTIVE CATEGORY TAB                   */}
       {/* ========================================================================= */}
-
-      <div className="mt-10 relative w-full overflow-hidden">
+      <div className="relative mt-8 w-full overflow-hidden group">
         {/* Soft edge gradient fades */}
         <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-r from-[#080808] via-[#080808]/80 to-transparent z-20 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-28 bg-gradient-to-l from-[#080808] via-[#080808]/80 to-transparent z-20 pointer-events-none" />
 
-        {/* When activeCategory === 'all', show dynamic dual-lane left-to-right rolling ribbons */}
-        {activeCategory === 'all' ? (
-          <div className="space-y-6">
-            {/* --- LANE 1: Display Ads (DOOH) & Quick Commerce Dark Stores --- */}
-            <div className="relative overflow-hidden group">
-              <div className="mb-2 container-site flex items-center justify-between text-[11px] font-semibold uppercase tracking-widest text-mute">
-                <span className="flex items-center gap-1.5 text-brand">
-                  <Tv size={12} />
-                  <span>Lane 1: High-Dwell DOOH Displays & Quick Commerce Inserts</span>
-                </span>
-                <span className="hidden sm:inline text-mute/60 font-normal">
-                  Rolling Left → Right · Hover card to inspect
-                </span>
-              </div>
-
-              <div
-                className={`flex gap-6 w-max ${getSpeedClass()}`}
-                style={{ willChange: 'transform' }}
-              >
-                {/* Duplicate items twice for smooth infinite loop */}
-                {[...lane1Services, ...lane1Services, ...lane1Services].map((service, idx) => (
-                  <ServiceCard
-                    key={`lane1-${service.id}-${idx}`}
-                    service={service}
-                    onSelect={() => setSelectedService(service)}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* --- LANE 2: Building Software, Tech & AI + Transit & Video --- */}
-            <div className="relative overflow-hidden group pt-2">
-              <div className="mb-2 container-site flex items-center justify-between text-[11px] font-semibold uppercase tracking-widest text-mute">
-                <span className="flex items-center gap-1.5 text-brand">
-                  <Code2 size={12} />
-                  <span>Lane 2: Software, Web Apps, AI Chatbots & Moving Transit</span>
-                </span>
-                <span className="hidden sm:inline text-mute/60 font-normal">
-                  Continuous Rolling · Tap card for specs
-                </span>
-              </div>
-
-              <div
-                className={`flex gap-6 w-max ${getSpeedClass()}`}
-                style={{ willChange: 'transform' }}
-              >
-                {/* Duplicate items twice for smooth infinite loop */}
-                {[...lane2Services, ...lane2Services, ...lane2Services].map((service, idx) => (
-                  <ServiceCard
-                    key={`lane2-${service.id}-${idx}`}
-                    service={service}
-                    onSelect={() => setSelectedService(service)}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        ) : (
-          /* When a specific category is filtered, show single continuous left-to-right track of that category */
-          <div className="relative overflow-hidden group py-2">
-            <div
-              className={`flex gap-6 w-max ${getSpeedClass()}`}
-              style={{ willChange: 'transform' }}
-            >
-              {[
-                ...filteredServices,
-                ...filteredServices,
-                ...filteredServices,
-                ...filteredServices,
-              ].map((service, idx) => (
-                <ServiceCard
-                  key={`filter-${service.id}-${idx}`}
-                  service={service}
-                  onSelect={() => setSelectedService(service)}
-                />
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="flex gap-6 w-max animate-marquee-ltr" style={{ willChange: 'transform' }}>
+          {rollingItems.map((service, idx) => (
+            <ServiceCard
+              key={`showcase-${service.id}-${idx}`}
+              service={service}
+              onSelect={() => setSelectedService(service)}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Bottom Summary Bar */}

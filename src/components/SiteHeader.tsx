@@ -43,7 +43,7 @@ export default function SiteHeader() {
       setScrolled(scrollY > 20);
 
       if (Math.abs(scrollY - lastScrollY) > 8) {
-        if (scrollY > lastScrollY && scrollY > 100) {
+        if (scrollY > lastScrollY && scrollY > 620) {
           setScrollDirection('down');
         } else if (scrollY < lastScrollY) {
           setScrollDirection('up');
