@@ -13,7 +13,7 @@ export interface HeroCopyProps {
 }
 
 export default function HeroCopy({
-  eyebrow = 'MR. ADS / HYPERLOCAL ADVERTISING',
+  eyebrow = 'PREMIUM HYPERLOCAL ADVERTISING NETWORK',
   headlineLine1 = 'Reach Customers',
   headlineAccent = 'Where They Live, Work &',
   headlineLine3 = 'Dine.',
@@ -25,7 +25,7 @@ export default function HeroCopy({
   ],
 }: HeroCopyProps) {
   return (
-    <div className="flex flex-col gap-6 lg:gap-8 max-w-2xl">
+    <div className="flex flex-col gap-4 lg:gap-5 max-w-2xl">
       {/* Eyebrow Beacon */}
       <Reveal variant="fade-up" delay={0.1}>
         <div className="inline-flex items-center gap-2.5">
@@ -40,7 +40,7 @@ export default function HeroCopy({
       </Reveal>
 
       {/* Main Headline - Line by Line Cinematic Reveal */}
-      <h1 className="font-editorial text-[44px] sm:text-[60px] md:text-[72px] xl:text-[88px] font-normal leading-[0.94] tracking-[-0.025em] text-[#F4F1EC]">
+      <h1 className="font-editorial text-[38px] sm:text-[50px] md:text-[60px] xl:text-[68px] font-normal leading-[0.98] tracking-[-0.02em] text-[#F4F1EC]">
         <Reveal variant="fade-up" delay={0.2}>
           <span className="block">{headlineLine1}</span>
         </Reveal>
@@ -54,13 +54,13 @@ export default function HeroCopy({
 
       {/* Supporting Text */}
       <Reveal variant="fade-up" delay={0.44}>
-        <p className="text-[17px] sm:text-[19px] lg:text-[20px] font-normal text-[#929292] leading-[1.6] max-w-[620px]">
+        <p className="text-[15px] sm:text-[16.5px] lg:text-[17px] font-normal text-[#929292] leading-[1.55] max-w-[560px]">
           {supportingText}
         </p>
       </Reveal>
 
       {/* Small Supporting Statements */}
-      <div className="pt-1 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-[13px] text-[#929292]">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-[13px] text-[#929292]">
         {supportingStatements.map((statement, idx) => (
           <Reveal key={idx} variant="fade-up" delay={0.52} staggerIndex={idx}>
             <div className="flex items-center gap-2">

@@ -1,0 +1,24 @@
+{
+  "projectId": "01a0a5ab-9a43-75a9-b01f-6c38528a934a",
+  "server": null,
+  "localToolProfile": "coding.v3",
+  "tools": {
+    "mcpServers": [],
+    "multimodal": {
+      "image": false,
+      "audio": false,
+      "video": false,
+      "music": false,
+      "sound": false
+    },
+    "deploy": true,
+    "browser": false,
+    "computer": false,
+    "lspServers": [],
+    "summary": {
+      "enabled": true,
+      "spoken": true
+    }
+  },
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash"
+}
