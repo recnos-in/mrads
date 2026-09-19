@@ -1,6 +1,7 @@
 import React from 'react';
 import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
+import WhatsAppFloatButton from './WhatsAppFloatButton';
 
 export default function TargetShell({
   children,
@@ -16,6 +17,7 @@ export default function TargetShell({
       <main id="main">{children}</main>
       <SiteFooter />
       {reserveMobileCtaBar && <div className="h-[76px] sm:hidden" aria-hidden="true" />}
+      <WhatsAppFloatButton />
     </div>
   );
 }
