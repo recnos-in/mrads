@@ -11,7 +11,7 @@ export default function HeroServiceRow() {
   return (
     <div className="relative w-full overflow-hidden select-none">
       {/* Section Label */}
-      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 mb-3 flex items-center gap-2.5 text-[11px]">
+      <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 mb-2 flex items-center gap-2.5 text-[11px]">
         <span className="w-1.5 h-1.5 rounded-full bg-[#C83A4B]" />
         <span className="text-[#929292] font-semibold uppercase tracking-[0.18em] text-[10.5px]">
           Our Advertising Network
@@ -29,10 +29,10 @@ export default function HeroServiceRow() {
             <Link
               key={`hero-service-${service.id}-${idx}`}
               href={service.link}
-              className="card-interactive group relative w-[260px] sm:w-[290px] flex-shrink-0 rounded-2xl border border-white/[0.09] hover:border-[#DE4A5C]/60 bg-[#101010] hover:bg-[#151515] p-3.5 transition-all duration-300 flex flex-col gap-3"
+              className="card-interactive group relative w-[220px] sm:w-[250px] flex-shrink-0 rounded-xl border border-white/[0.09] hover:border-[#DE4A5C]/60 bg-[#101010] hover:bg-[#151515] p-2.5 transition-all duration-300 flex flex-col gap-2"
             >
               {/* Thumbnail */}
-              <div className="relative aspect-[16/10] rounded-xl overflow-hidden bg-black border border-white/[0.06]">
+              <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-black border border-white/[0.06]">
                 <img
                   src={service.image}
                   alt={service.title}
