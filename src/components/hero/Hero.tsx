@@ -12,7 +12,7 @@ export default function Hero() {
     <section
       id="home"
       aria-label="Mr. Ads Hero"
-      className="relative flex flex-col overflow-hidden border-b border-white/[0.08] bg-[#080808] pb-10 pt-14 text-[#F4F1EC] sm:pb-12 sm:pt-16 lg:pb-14 lg:pt-20"
+      className="relative flex flex-col overflow-hidden border-b border-white/[0.08] bg-[#080808] pb-6 pt-8 text-[#F4F1EC] sm:pb-8 sm:pt-10 lg:pb-10 lg:pt-12"
     >
       {/* Atmospheric Ambient Depth */}
       <div className="pointer-events-none absolute inset-0">
@@ -23,7 +23,7 @@ export default function Hero() {
       </div>
 
       {/* Hero Core: Headline & Description on the left, Action Buttons anchored to the right on large screens */}
-      <div className="relative z-10 mx-auto mb-14 w-full max-w-[1600px] px-6 sm:mb-16 sm:px-10 lg:mb-20 lg:px-16 xl:px-20">
+      <div className="relative z-10 mx-auto mb-8 w-full max-w-[1600px] px-6 sm:mb-10 sm:px-10 lg:mb-12 lg:px-16 xl:px-20">
         <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
           <HeroCopy />
           <div className="w-full flex-shrink-0 lg:mb-2 lg:w-auto">
@@ -33,7 +33,7 @@ export default function Hero() {
       </div>
 
       {/* Network Numbers & Audience Context */}
-      <div className="relative z-10 mb-14 sm:mb-16 lg:mb-20">
+      <div className="relative z-10 mb-8 sm:mb-10 lg:mb-12">
         <HeroTrustStrip />
       </div>
 
@@ -43,7 +43,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom Centered Scroll Indicator */}
-      <div className="relative z-10 flex justify-center pt-10">
+      <div className="relative z-10 flex justify-center pt-6">
         <ScrollIndicator />
       </div>
     </section>
