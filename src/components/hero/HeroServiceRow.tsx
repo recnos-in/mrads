@@ -23,18 +23,18 @@ export default function HeroServiceRow() {
     <div className="relative w-full overflow-hidden select-none">
       {/* Single Continuous Rolling Marquee Row */}
       <div className="relative w-full overflow-hidden py-3 group">
-        <div className="absolute left-0 top-0 bottom-0 w-14 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-transparent z-10 pointer-events-none sm:w-28" />
-        <div className="absolute right-0 top-0 bottom-0 w-14 bg-gradient-to-l from-[#080808] via-[#080808]/85 to-transparent z-10 pointer-events-none sm:w-28" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#080808] via-[#080808]/85 to-transparent z-10 pointer-events-none sm:w-28" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#080808] via-[#080808]/85 to-transparent z-10 pointer-events-none sm:w-28" />
 
-        <div className="flex gap-5 w-max animate-marquee-ltr" style={{ willChange: 'transform' }}>
+        <div className="flex gap-3 w-max animate-marquee-ltr sm:gap-5" style={{ willChange: 'transform' }}>
           {rollingItems.map((service, idx) => (
             <div
               key={`hero-service-${service.id}-${idx}`}
               onClick={() => setSelectedService(service)}
-              className="group/card relative flex w-[280px] sm:w-[320px] flex-shrink-0 flex-col justify-between rounded-2xl border border-white/[0.08] bg-[#0E0E0E] hover:bg-[#141414] p-4 cursor-pointer transition-all duration-300 hover:border-[#DE4A5C]/50 hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)]"
+              className="group/card relative flex w-[180px] flex-shrink-0 flex-col justify-between rounded-xl border border-white/[0.08] bg-[#0E0E0E] hover:bg-[#141414] p-2.5 cursor-pointer transition-all duration-300 hover:border-[#DE4A5C]/50 hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] sm:w-[280px] sm:rounded-2xl sm:p-4 lg:w-[320px]"
             >
               {/* Thumbnail */}
-              <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-black border border-white/[0.06]">
+              <div className="relative aspect-[16/9] rounded-lg overflow-hidden bg-black border border-white/[0.06] sm:rounded-xl">
                 <img
                   src={service.image}
                   alt={service.title}
@@ -42,45 +42,45 @@ export default function HeroServiceRow() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-black/20 to-transparent" />
-                <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1.5">
-                  <span className="rounded-full border border-white/15 bg-black/85 px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wider text-[#F4F1EC] backdrop-blur-md">
+                <div className="absolute top-1.5 left-1.5 right-1.5 flex items-center justify-between gap-1 sm:top-2 sm:left-2 sm:right-2 sm:gap-1.5">
+                  <span className="rounded-full border border-white/15 bg-black/85 px-1.5 py-0.5 text-[7.5px] font-bold uppercase tracking-wider text-[#F4F1EC] backdrop-blur-md sm:px-2 sm:text-[9.5px]">
                     {service.categoryLabel.split(' ')[0]}
                   </span>
-                  <span className="rounded-full bg-[#C83A4B] px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wider text-white shadow-sm">
+                  <span className="rounded-full bg-[#C83A4B] px-1.5 py-0.5 text-[7.5px] font-bold uppercase tracking-wider text-white shadow-sm sm:px-2 sm:text-[9.5px]">
                     {service.badge}
                   </span>
                 </div>
-                <div className="absolute bottom-2 right-2 opacity-0 group-hover/card:opacity-100 transition-opacity bg-black/80 backdrop-blur-md border border-white/20 text-white rounded-lg p-1.5">
+                <div className="hidden opacity-0 group-hover/card:opacity-100 transition-opacity bg-black/80 backdrop-blur-md border border-white/20 text-white rounded-lg p-1.5 sm:absolute sm:bottom-2 sm:right-2 sm:block">
                   <Maximize2 size={12} />
                 </div>
               </div>
 
               {/* Content */}
-              <div className="mt-3 flex-1 flex flex-col justify-between">
+              <div className="mt-2 flex-1 flex flex-col justify-between sm:mt-3">
                 <div>
-                  <h3 className="line-clamp-1 text-[14.5px] font-semibold text-[#F4F1EC] transition-colors group-hover/card:text-[#DE4A5C]">
+                  <h3 className="line-clamp-1 text-[11.5px] font-semibold text-[#F4F1EC] transition-colors group-hover/card:text-[#DE4A5C] sm:text-[14.5px]">
                     {service.title}
                   </h3>
-                  <p className="mt-1 line-clamp-2 text-[12px] leading-relaxed text-[#8A8A8A]">
+                  <p className="mt-1 line-clamp-2 text-[9.5px] leading-snug text-[#8A8A8A] sm:text-[12px] sm:leading-relaxed">
                     {service.description}
                   </p>
                 </div>
 
                 {/* Metrics */}
-                <div className="mt-3 grid grid-cols-2 gap-1.5 pt-2.5 border-t border-white/[0.06]">
+                <div className="mt-2 grid grid-cols-2 gap-1 pt-2 border-t border-white/[0.06] sm:mt-3 sm:gap-1.5 sm:pt-2.5">
                   {service.metrics.slice(0, 2).map((m) => (
-                    <div key={m.label} className="bg-white/[0.03] rounded-lg p-1.5 border border-white/[0.04]">
-                      <div className="text-[9px] uppercase font-semibold text-[#7A7A7A] truncate">{m.label}</div>
-                      <div className="text-[11.5px] font-bold text-[#F4F1EC] truncate mt-0.5">{m.value}</div>
+                    <div key={m.label} className="bg-white/[0.03] rounded-md p-1 border border-white/[0.04] sm:rounded-lg sm:p-1.5">
+                      <div className="text-[7px] uppercase font-semibold text-[#7A7A7A] truncate sm:text-[9px]">{m.label}</div>
+                      <div className="text-[9.5px] font-bold text-[#F4F1EC] truncate mt-0.5 sm:text-[11.5px]">{m.value}</div>
                     </div>
                   ))}
                 </div>
 
                 {/* Footer Action */}
-                <div className="mt-3 flex items-center justify-between pt-2 border-t border-white/[0.04] text-[11px] font-semibold uppercase tracking-wider text-[#DE4A5C]">
+                <div className="mt-2 flex items-center justify-between pt-1.5 border-t border-white/[0.04] text-[9px] font-semibold uppercase tracking-wider text-[#DE4A5C] sm:mt-3 sm:pt-2 sm:text-[11px]">
                   <span>Inspect Solution</span>
                   <ArrowRight
-                    size={12}
+                    size={11}
                     className="transform group-hover/card:translate-x-0.5 transition-transform"
                   />
                 </div>
