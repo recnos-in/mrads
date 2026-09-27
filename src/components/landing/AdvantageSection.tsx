@@ -29,7 +29,7 @@ const approach = [
   },
   {
     title: 'Multi-Surface Neighborhood Coverage',
-    desc: 'One synchronized flight across DOOH screens, moving transit wraps, doorstep inserts, and local pharmacy covers.',
+    desc: 'One synchronized flight across DOOH screens, moving transit wraps, and doorstep inserts.',
   },
   {
     title: 'Contextual Relevance',

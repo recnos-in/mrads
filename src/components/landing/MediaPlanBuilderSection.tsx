@@ -19,7 +19,6 @@ const channelsList = [
   'Mobile Van / Roadshow',
   'Flyer Distribution',
   'Newspaper / QC Inserts',
-  'Pharmacy Covers',
   'Creative Services',
   'Website / AI',
 ];

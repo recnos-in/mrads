@@ -164,35 +164,6 @@ export default function SolutionsPreviewSection() {
         </a>
 
         <a
-          href="#offline"
-          className="group bg-[#121B2D] border border-slate-800 rounded-3xl overflow-hidden shadow-card card-hover reveal in reveal-d2 block"
-        >
-          <div className="h-44 overflow-hidden img-zoom relative">
-            <img
-              src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=900&auto=format&fit=crop"
-              alt="Pharmacy cover advertising"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <span className="absolute top-3 left-3 bg-[#162238] border border-slate-700 text-white text-[11px] font-bold px-3 py-1.5 rounded-full">
-              F · Pharmacy
-            </span>
-          </div>
-          <div className="p-6">
-            <h3 className="font-extrabold text-[17px] text-white group-hover:text-brand transition">
-              Pharmacy Cover Advertising
-            </h3>
-            <p className="text-slate-400 text-[13.5px] mt-2">
-              Take-home branding via partner pharmacies. Ideal for healthcare, education & retail.
-            </p>
-            <span className="mt-4 inline-flex items-center gap-2 text-[13px] font-bold text-brand">
-              View details{' '}
-              <i className="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
-            </span>
-          </div>
-        </a>
-
-        <a
           href="#digital"
           className="group lg:col-span-3 bg-[#162238] border border-slate-700 text-white rounded-3xl overflow-hidden shadow-lift card-hover reveal in block"
         >

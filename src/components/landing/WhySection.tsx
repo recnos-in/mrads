@@ -12,7 +12,7 @@ const reasons = [
   {
     num: '02',
     title: 'Integrated Multi-Channel Network',
-    body: 'Digital screens, moving vehicle media, print inserts, and pharmacy covers synchronize as a unified plan. One brief, several surfaces, compounding reach.',
+    body: 'Digital screens, moving vehicle media, and print inserts synchronize as a unified plan. One brief, several surfaces, compounding reach.',
   },
   {
     num: '03',

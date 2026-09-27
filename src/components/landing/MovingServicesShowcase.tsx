@@ -16,7 +16,6 @@ import {
   Code2,
   Bus,
   Film,
-  Gift,
 } from 'lucide-react';
 import { PITCH_DECK_SERVICES, PitchDeckService } from '@/data/pitchDeckServices';
 
@@ -40,7 +39,6 @@ export default function MovingServicesShowcase() {
     { id: 'quick-commerce', label: 'Quick Commerce', icon: Zap },
     { id: 'software-tech', label: 'Software & AI', icon: Code2 },
     { id: 'content-video', label: 'Video & Creative', icon: Film },
-    { id: 'corporate-gifting', label: 'Corporate Gifting', icon: Gift },
   ];
 
   return (
@@ -64,7 +62,8 @@ export default function MovingServicesShowcase() {
             <span className="text-brand font-serif italic">Every Channel You Need.</span>
           </h2>
           <p className="mt-4 text-[15px] sm:text-[16px] leading-relaxed text-mute">
-            Explore our end-to-end advertising network — spanning Display DOOH screens, Quick Commerce dark stores, and Software & AI solutions.
+            Explore our end-to-end advertising network — spanning Display DOOH screens, Quick
+            Commerce dark stores, and Software & AI solutions.
           </p>
         </div>
 

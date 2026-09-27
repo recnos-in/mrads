@@ -23,7 +23,7 @@ export default function OfflineSection({ onPrefill }: OfflineSectionProps) {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-5 mt-10">
+        <div className="grid lg:grid-cols-2 gap-5 mt-10">
           <div className="bg-[#121B2D] rounded-3xl border border-slate-800 shadow-card overflow-hidden card-hover reveal in flex flex-col">
             <div className="h-48 overflow-hidden img-zoom">
               <img
@@ -120,52 +120,6 @@ export default function OfflineSection({ onPrefill }: OfflineSectionProps) {
                 className="mt-5 btn-primary text-center font-bold text-sm px-5 py-3 rounded-full mt-auto"
               >
                 Plan inserts
-              </a>
-            </div>
-          </div>
-
-          <div className="bg-[#121B2D] rounded-3xl border border-slate-800 shadow-card overflow-hidden card-hover reveal in reveal-d2 flex flex-col">
-            <div className="h-48 overflow-hidden img-zoom">
-              <img
-                src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=800&auto=format&fit=crop"
-                alt="Pharmacy counter with medicine covers"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
-            <div className="p-6 flex-1 flex flex-col">
-              <span className="text-[11px] font-bold tracking-[.12em] uppercase text-brand">
-                Pharmacy Cover Advertising
-              </span>
-              <h3 className="font-extrabold text-lg mt-2 text-white">
-                Practical take-home branding
-              </h3>
-              <p className="text-slate-400 text-[14px] mt-2">
-                Distributed through partner pharmacies. Repeated visibility every time the cover is
-                reused at home.
-              </p>
-              <p className="spec-label mt-5 mb-2">Suitable for</p>
-              <div className="flex flex-wrap gap-2 text-[12px] font-bold">
-                <span className="bg-[#162238] border border-slate-700 text-slate-200 px-3 py-1.5 rounded-full">
-                  Healthcare
-                </span>
-                <span className="bg-[#162238] border border-slate-700 text-slate-200 px-3 py-1.5 rounded-full">
-                  Education
-                </span>
-                <span className="bg-[#162238] border border-slate-700 text-slate-200 px-3 py-1.5 rounded-full">
-                  Retail
-                </span>
-                <span className="bg-[#162238] border border-slate-700 text-slate-200 px-3 py-1.5 rounded-full">
-                  Local businesses
-                </span>
-              </div>
-              <a
-                href="#contact"
-                onClick={() => onPrefill('Pharmacy Cover Advertising')}
-                data-env="Pharmacy Cover Advertising"
-                className="mt-5 btn-primary text-center font-bold text-sm px-5 py-3 rounded-full mt-auto"
-              >
-                Plan pharmacy covers
               </a>
             </div>
           </div>

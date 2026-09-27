@@ -69,7 +69,7 @@ const solutionPillars = [
     href: '/offline-print',
     image: '/images/flyers.jpg',
     summary:
-      'Direct doorstep distribution, verified newspaper inserts, quick-commerce dark store drops, and neighbourhood pharmacy covers.',
+      'Direct doorstep distribution, verified newspaper inserts, and quick-commerce dark store drops.',
     metrics: [
       { value: '100%', label: 'Doorstep reach' },
       { value: 'PIN-code', label: 'Targeted delivery' },
@@ -79,7 +79,6 @@ const solutionPillars = [
       'Supervised flyer distribution at transit hubs and gated societies',
       'Official morning newspaper insertions delivered directly into homes',
       'E-commerce dark store delivery bag inserts reaching active shoppers',
-      'Branded pharmacy medicine covers kept and seen repeatedly for weeks',
     ],
   },
   {

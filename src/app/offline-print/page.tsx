@@ -48,24 +48,6 @@ const offlineChannels = [
       { label: 'Tracking', value: 'Area-wise batch reconciliation' },
     ],
   },
-  {
-    id: 'pharmacy',
-    title: 'Pharmacy Cover Advertising',
-    image: '/images/pharmacy.jpg',
-    lead: 'Branded medical covers and storefront branding across neighbourhood chemist shops. A high-utility physical format kept and reused inside resident homes.',
-    locations: [
-      'Neighbourhood independent chemists',
-      'Healthcare retail hubs & clinic clusters',
-      'High-density residential market areas',
-      'Hospital adjacent pharmacy rows',
-    ],
-    specs: [
-      { label: 'Distribution Mode', value: 'Over-the-counter customer handoff' },
-      { label: 'Format', value: 'Heavyweight branded medicine pouches' },
-      { label: 'Reusability', value: 'High retention in domestic medicine kits' },
-      { label: 'Targeting', value: 'Locality & healthcare corridor' },
-    ],
-  },
 ];
 
 export default function OfflinePrintPage() {
@@ -216,7 +198,7 @@ export default function OfflinePrintPage() {
               },
               {
                 title: 'High In-Home Table Retention',
-                desc: 'Flyers and inserts placed on dining tables and in medicine pouches stay in sight for days, not fleeting seconds.',
+                desc: 'Flyers and inserts placed on dining tables stay in sight for days, not fleeting seconds.',
               },
               {
                 title: 'Contextual Neighborhood Timing',
@@ -238,7 +220,7 @@ export default function OfflinePrintPage() {
       {/* 5. Final CTA */}
       <FinalCta
         title="Deliver Your Message Straight to Verified Doorsteps."
-        copy="Tell us the PIN codes, apartment societies, or transit intersections you want to reach. We will plan supervised flyer, insert, and pharmacy distribution."
+        copy="Tell us the PIN codes, apartment societies, or transit intersections you want to reach. We will plan supervised flyer and insert distribution."
       />
     </TargetShell>
   );

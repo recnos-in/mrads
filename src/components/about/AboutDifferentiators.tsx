@@ -10,7 +10,7 @@ const differentiators = [
   {
     num: '02',
     title: 'Multiple Advertising Channels',
-    body: 'Digital screens, moving media, print, inserts and pharmacy covers work as one plan. One brief, several surfaces, a coherent presence.',
+    body: 'Digital screens, moving media, print and inserts work as one plan. One brief, several surfaces, a coherent presence.',
   },
   {
     num: '03',

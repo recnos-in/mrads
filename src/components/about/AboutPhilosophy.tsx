@@ -23,8 +23,8 @@ export default function AboutPhilosophy() {
             </p>
             <p>
               The company combines digital display advertising, advertising on the move, offline
-              distribution, print and creative, newspaper and quick-commerce inserts, pharmacy cover
-              advertising, and websites, development and AI solutions.
+              distribution, print and creative, newspaper and quick-commerce inserts, and websites,
+              development and AI solutions.
             </p>
             <p>
               The aim is simple: repeated, well-placed presence for brands that need to be known

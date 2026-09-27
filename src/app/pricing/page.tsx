@@ -21,7 +21,6 @@ const pricingChannels = [
   { id: 'van', label: 'Mobile Promo Van' },
   { id: 'flyer', label: 'Flyer Distribution' },
   { id: 'inserts', label: 'Newspaper & Dark Store Inserts' },
-  { id: 'pharmacy', label: 'Pharmacy Covers' },
   { id: 'creative', label: 'Creative Studio Design' },
   { id: 'digital', label: 'Website / AI Solution' },
 ];

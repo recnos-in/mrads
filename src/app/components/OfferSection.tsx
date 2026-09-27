@@ -50,7 +50,6 @@ const categories = [
     items: [
       { label: 'Quick Commerce Inserts', spec: 'Zepto, Instamart, Blinkit' },
       { label: 'Newspaper Inserts', spec: 'Hyperlocal targeting' },
-      { label: 'Pharmacy Cover Ads', spec: 'Take-home branding' },
       { label: 'Flyer Distribution', spec: 'Hand-to-Hand & Door-to-Door' },
       { label: 'Apartment Campaigns', spec: 'Event promotions' },
     ],

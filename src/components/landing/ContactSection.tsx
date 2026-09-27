@@ -47,7 +47,6 @@ const requirementOptions = [
   'Mobile Van / Bus Shelter / Roadshow',
   'Offline Flyer Distribution',
   'Newspaper & Quick Commerce Inserts',
-  'Pharmacy Cover Advertising',
   'Print & Creative Design',
   'Website / AI Solutions',
   'Customized Advertising Solution',

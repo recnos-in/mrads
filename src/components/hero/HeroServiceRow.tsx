@@ -2,14 +2,12 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ChevronLeft, ChevronRight, Maximize2, Sparkles } from 'lucide-react';
+import { ArrowRight, Maximize2 } from 'lucide-react';
 import { PITCH_DECK_SERVICES } from '@/data/pitchDeckServices';
 
 export default function HeroServiceRow() {
   const mobileScrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
 
   // Ensure enough items in the track for seamless continuous looping on desktop
   const repeatCount = Math.max(2, Math.ceil(8 / Math.max(PITCH_DECK_SERVICES.length, 1)));
@@ -20,9 +18,7 @@ export default function HeroServiceRow() {
     const el = mobileScrollRef.current;
     if (!el) return;
 
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    setCanScrollLeft(scrollLeft > 15);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 15);
+    const { scrollLeft, clientWidth } = el;
 
     // Calculate the most visible card in the viewport
     const children = Array.from(el.children) as HTMLElement[];
@@ -41,31 +37,71 @@ export default function HeroServiceRow() {
       }
     });
 
-    setActiveIndex(closestIndex);
+    setActiveIndex(closestIndex % PITCH_DECK_SERVICES.length);
   }, []);
 
-  const scrollToIndex = (index: number) => {
+  // Rotate the mobile carousel continuously by driving its native scroll position
+  useEffect(() => {
     const el = mobileScrollRef.current;
     if (!el) return;
 
-    const targetChild = el.children[index] as HTMLElement;
-    if (targetChild) {
-      targetChild.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center',
-      });
-      setActiveIndex(index);
-    }
-  };
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
 
-  const handlePrev = () => {
-    scrollToIndex(Math.max(0, activeIndex - 1));
-  };
+    const SPEED = 0.6; // px per frame (~36px/s at 60fps)
+    let frame = 0;
+    let paused = false;
+    let last = performance.now();
 
-  const handleNext = () => {
-    scrollToIndex(Math.min(PITCH_DECK_SERVICES.length - 1, activeIndex + 1));
-  };
+    const pause = () => {
+      paused = true;
+    };
+    const resume = () => {
+      paused = false;
+      last = performance.now();
+    };
+
+    const step = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+
+      const loopWidth = el.scrollWidth / 2; // track holds two full copies
+      if (loopWidth > 0 && !paused && el.scrollLeft > 0) {
+        let next = el.scrollLeft + SPEED * 60 * dt;
+        // Once the first copy has scrolled past, jump back one copy width.
+        // Both copies are identical, so the jump is visually invisible.
+        if (next >= loopWidth) next -= loopWidth;
+        el.scrollLeft = next;
+      } else if (!paused && el.scrollLeft <= 0) {
+        el.scrollLeft = 1;
+      }
+
+      frame = requestAnimationFrame(step);
+    };
+
+    frame = requestAnimationFrame(step);
+
+    el.addEventListener('pointerdown', pause);
+    el.addEventListener('pointerup', resume);
+    el.addEventListener('pointercancel', resume);
+    el.addEventListener('touchstart', pause, { passive: true });
+    el.addEventListener('touchend', resume, { passive: true });
+    el.addEventListener('mouseenter', pause);
+    el.addEventListener('mouseleave', resume);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      el.removeEventListener('pointerdown', pause);
+      el.removeEventListener('pointerup', resume);
+      el.removeEventListener('pointercancel', resume);
+      el.removeEventListener('touchstart', pause);
+      el.removeEventListener('touchend', resume);
+      el.removeEventListener('mouseenter', pause);
+      el.removeEventListener('mouseleave', resume);
+    };
+  }, []);
 
   useEffect(() => {
     const el = mobileScrollRef.current;
@@ -81,171 +117,101 @@ export default function HeroServiceRow() {
       {/* MOBILE EXPERIENCE: THUMB-SCROLLABLE & SWIPEABLE CAROUSEL (< sm)           */}
       {/* ========================================================================= */}
       <div className="block sm:hidden w-full">
-        {/* Mobile Header: Swipe Instruction & Thumb Step Counter */}
-        <div className="flex items-center justify-between px-6 pb-2.5">
-          <div className="inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-wider text-[#A0A0A0]">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#DE4A5C] opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#C83A4B]" />
-            </span>
-            <span>Swipe Solutions</span>
-          </div>
-
-          <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-mono font-medium tracking-tight text-[#DE4A5C]">
-              0{activeIndex + 1}
-            </span>
-            <span className="text-[11px] font-mono text-[#555555]">/</span>
-            <span className="text-[11px] font-mono text-[#777777]">
-              0{PITCH_DECK_SERVICES.length}
-            </span>
-
-            {/* Quick Touch Arrow Buttons */}
-            <div className="ml-2 flex items-center gap-1">
-              <button
-                type="button"
-                onClick={handlePrev}
-                disabled={!canScrollLeft}
-                aria-label="Previous service"
-                className={`flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] transition-all active:scale-95 ${
-                  canScrollLeft
-                    ? 'text-white hover:bg-white/[0.1] active:bg-[#C83A4B]'
-                    : 'cursor-not-allowed opacity-30 text-white/40'
-                }`}
-              >
-                <ChevronLeft size={13} />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                disabled={!canScrollRight}
-                aria-label="Next service"
-                className={`flex h-6 w-6 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] transition-all active:scale-95 ${
-                  canScrollRight
-                    ? 'text-white hover:bg-white/[0.1] active:bg-[#C83A4B]'
-                    : 'cursor-not-allowed opacity-30 text-white/40'
-                }`}
-              >
-                <ChevronRight size={13} />
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Thumb-Scrollable Container */}
-        <div className="relative w-full">
+        <div className="relative w-full overflow-hidden">
           {/* Edge shadow gradient indicators */}
-          {canScrollLeft && (
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-6 bg-gradient-to-r from-[#080808] to-transparent transition-opacity duration-300" />
-          )}
-          {canScrollRight && (
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-6 bg-gradient-to-l from-[#080808] to-transparent transition-opacity duration-300" />
-          )}
+          <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-6 bg-gradient-to-r from-[#080808] to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-6 bg-gradient-to-l from-[#080808] to-transparent" />
 
           <div
             ref={mobileScrollRef}
-            className="flex gap-3.5 overflow-x-auto px-6 py-2 snap-x snap-mandatory scroll-smooth overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex gap-3.5 overflow-x-auto px-6 py-2 overscroll-x-contain touch-pan-x [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            {PITCH_DECK_SERVICES.map((service, idx) => {
-              const isActive = idx === activeIndex;
-              return (
-                <Link
-                  key={`mobile-hero-service-${service.id}`}
-                  href={service.link}
-                  className={`group/card relative flex w-[80vw] max-w-[290px] flex-shrink-0 snap-center flex-col justify-between rounded-2xl border p-3.5 transition-all duration-300 active:scale-[0.99] ${
-                    isActive
-                      ? 'border-[#DE4A5C]/60 bg-[#121212] shadow-[0_10px_30px_rgba(0,0,0,0.8)] shadow-[#C83A4B]/10'
-                      : 'border-white/[0.08] bg-[#0E0E0E] opacity-90'
-                  }`}
-                >
-                  {/* Thumbnail & Badges */}
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-black border border-white/[0.06]">
-                    <img
-                      src={service.image}
-                      alt={service.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover/card:scale-105"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-black/20 to-transparent" />
-                    
-                    {/* Category & Badge */}
-                    <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1">
-                      <span className="rounded-full border border-white/20 bg-black/85 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[#F4F1EC] backdrop-blur-md">
-                        {service.categoryLabel.split(' ')[0]}
-                      </span>
-                      <span className="rounded-full bg-[#C83A4B] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white shadow-sm">
-                        {service.badge}
-                      </span>
+            {[0, 1].map((copy) =>
+              PITCH_DECK_SERVICES.map((service, idx) => {
+                const isActive = copy === 0 && idx === activeIndex;
+                return (
+                  <Link
+                    key={`mobile-hero-service-${copy}-${service.id}`}
+                    href={service.link}
+                    className={`group/card relative flex w-[80vw] max-w-[290px] flex-shrink-0 flex-col justify-between rounded-2xl border p-3.5 transition-all duration-300 active:scale-[0.99] ${
+                      isActive
+                        ? 'border-[#DE4A5C]/60 bg-[#121212] shadow-[0_10px_30px_rgba(0,0,0,0.8)] shadow-[#C83A4B]/10'
+                        : 'border-white/[0.08] bg-[#0E0E0E] opacity-90'
+                    }`}
+                  >
+                    {/* Thumbnail & Badges */}
+                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-black border border-white/[0.06]">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover/card:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0E0E0E] via-black/20 to-transparent" />
+
+                      {/* Category & Badge */}
+                      <div className="absolute top-2 left-2 right-2 flex items-center justify-between gap-1">
+                        <span className="rounded-full border border-white/20 bg-black/85 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[#F4F1EC] backdrop-blur-md">
+                          {service.categoryLabel.split(' ')[0]}
+                        </span>
+                        <span className="rounded-full bg-[#C83A4B] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white shadow-sm">
+                          {service.badge}
+                        </span>
+                      </div>
+
+                      <div className="absolute bottom-2 right-2 rounded-lg border border-white/20 bg-black/80 p-1 text-white backdrop-blur-md">
+                        <Maximize2 size={11} />
+                      </div>
                     </div>
 
-                    <div className="absolute bottom-2 right-2 rounded-lg border border-white/20 bg-black/80 p-1 text-white backdrop-blur-md">
-                      <Maximize2 size={11} />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="mt-2.5 flex flex-1 flex-col justify-between">
-                    <div>
-                      <h3
-                        className={`text-[13.5px] font-semibold transition-colors line-clamp-1 ${
-                          isActive ? 'text-[#DE4A5C]' : 'text-[#F4F1EC]'
-                        }`}
-                      >
-                        {service.title}
-                      </h3>
-                      <p className="mt-1 text-[11px] leading-relaxed text-[#8A8A8A] line-clamp-2">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    {/* Metrics */}
-                    <div className="mt-2.5 grid grid-cols-2 gap-1.5 border-t border-white/[0.06] pt-2">
-                      {service.metrics.slice(0, 2).map((m) => (
-                        <div
-                          key={m.label}
-                          className="rounded-lg border border-white/[0.04] bg-white/[0.03] p-1.5"
+                    {/* Content */}
+                    <div className="mt-2.5 flex flex-1 flex-col justify-between">
+                      <div>
+                        <h3
+                          className={`text-[13.5px] font-semibold transition-colors line-clamp-1 ${
+                            isActive ? 'text-[#DE4A5C]' : 'text-[#F4F1EC]'
+                          }`}
                         >
-                          <div className="truncate text-[8.5px] font-semibold uppercase text-[#7A7A7A]">
-                            {m.label}
-                          </div>
-                          <div className="mt-0.5 truncate text-[10.5px] font-bold text-[#F4F1EC]">
-                            {m.value}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                          {service.title}
+                        </h3>
+                        <p className="mt-1 text-[11px] leading-relaxed text-[#8A8A8A] line-clamp-2">
+                          {service.description}
+                        </p>
+                      </div>
 
-                    {/* Footer CTA */}
-                    <div className="mt-2.5 flex items-center justify-between border-t border-white/[0.04] pt-2 text-[10.5px] font-semibold uppercase tracking-wider text-[#DE4A5C]">
-                      <span>Inspect Solution</span>
-                      <ArrowRight size={11} className="transition-transform group-hover/card:translate-x-0.5" />
+                      {/* Metrics */}
+                      <div className="mt-2.5 grid grid-cols-2 gap-1.5 border-t border-white/[0.06] pt-2">
+                        {service.metrics.slice(0, 2).map((m) => (
+                          <div
+                            key={m.label}
+                            className="rounded-lg border border-white/[0.04] bg-white/[0.03] p-1.5"
+                          >
+                            <div className="truncate text-[8.5px] font-semibold uppercase text-[#7A7A7A]">
+                              {m.label}
+                            </div>
+                            <div className="mt-0.5 truncate text-[10.5px] font-bold text-[#F4F1EC]">
+                              {m.value}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Footer CTA */}
+                      <div className="mt-2.5 flex items-center justify-between border-t border-white/[0.04] pt-2 text-[10.5px] font-semibold uppercase tracking-wider text-[#DE4A5C]">
+                        <span>Inspect Solution</span>
+                        <ArrowRight
+                          size={11}
+                          className="transition-transform group-hover/card:translate-x-0.5"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              );
-            })}
+                  </Link>
+                );
+              })
+            )}
           </div>
-        </div>
-
-        {/* Mobile Pagination Dot Indicators */}
-        <div className="mt-2 flex items-center justify-center gap-1.5 py-1">
-          {PITCH_DECK_SERVICES.map((_, idx) => {
-            const isActive = idx === activeIndex;
-            return (
-              <button
-                key={`dot-${idx}`}
-                type="button"
-                onClick={() => scrollToIndex(idx)}
-                aria-label={`Go to slide ${idx + 1}`}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  isActive
-                    ? 'w-6 bg-[#C83A4B] shadow-[0_0_8px_rgba(200,58,75,0.6)]'
-                    : 'w-1.5 bg-white/20 hover:bg-white/40'
-                }`}
-              />
-            );
-          })}
         </div>
       </div>
 
@@ -299,9 +265,16 @@ export default function HeroServiceRow() {
                 {/* Metrics */}
                 <div className="mt-3 grid grid-cols-2 gap-1.5 pt-2.5 border-t border-white/[0.06]">
                   {service.metrics.slice(0, 2).map((m: { label: string; value: string }) => (
-                    <div key={m.label} className="bg-white/[0.03] rounded-lg p-1.5 border border-white/[0.04]">
-                      <div className="text-[9px] uppercase font-semibold text-[#7A7A7A] truncate">{m.label}</div>
-                      <div className="mt-0.5 text-[11.5px] font-bold text-[#F4F1EC] truncate">{m.value}</div>
+                    <div
+                      key={m.label}
+                      className="bg-white/[0.03] rounded-lg p-1.5 border border-white/[0.04]"
+                    >
+                      <div className="text-[9px] uppercase font-semibold text-[#7A7A7A] truncate">
+                        {m.label}
+                      </div>
+                      <div className="mt-0.5 text-[11.5px] font-bold text-[#F4F1EC] truncate">
+                        {m.value}
+                      </div>
                     </div>
                   ))}
                 </div>

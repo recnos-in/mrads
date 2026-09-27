@@ -150,41 +150,6 @@ export const PITCH_DECK_SERVICES: PitchDeckService[] = [
     link: '/offline-print',
     ctaText: 'Plan Quick Commerce Campaign',
   },
-  {
-    id: 'qc-pharmacy-covers',
-    title: 'Pharmacy Cover Advertising',
-    subtitle: 'Direct Brand Visibility Through Partner Pharmacies',
-    category: 'quick-commerce',
-    categoryLabel: 'Quick Commerce & Distribution',
-    badge: 'Long Household Retention',
-    badgeColor: 'brand',
-    isPriority: true,
-    image: '/images/pharmacy.jpg',
-    description:
-      'Branded prescription covers and medicine bags distributed through partner chemist counters, stored in medicine cabinets for weeks.',
-    metrics: [
-      { label: 'Distribution', value: 'Partner Chemist Stores' },
-      { label: 'Retention', value: 'Multi-Week Household Shelf' },
-      { label: 'Context', value: 'High Trust & Essential' },
-      { label: 'Target Sectors', value: 'Healthcare, Education, Retail' },
-    ],
-    specs: {
-      reach: 'Local families seeking health, wellness, and essential goods',
-      availableMediums: [
-        'Branded Medicine Covers',
-        'Custom Rx Sleeves',
-        'Counter Top Brand Displays',
-      ],
-      coreBenefits: [
-        'Distributed through official partner pharmacies',
-        'Practical take-home branding with repeated visibility',
-        'Ideal for healthcare, education, retail, and local businesses',
-        'Exceptional cost-per-impression value in residential circles',
-      ],
-    },
-    link: '/offline-print',
-    ctaText: 'Get Pharmacy Cover Rates',
-  },
 
   // ==========================================
   // 3. BUILDING SOFTWARE, TECH & AI SOLUTIONS
@@ -260,6 +225,7 @@ export const PITCH_DECK_SERVICES: PitchDeckService[] = [
     link: '/digital',
     ctaText: 'Deploy AI Chatbot',
   },
+
   // ==========================================
   // 4. CONTENT CREATION & VIDEO PRODUCTION
   // ==========================================
@@ -298,43 +264,5 @@ export const PITCH_DECK_SERVICES: PitchDeckService[] = [
     },
     link: '/print-creative',
     ctaText: 'Discuss Video Project',
-  },
-  // ==========================================
-  // 6. CORPORATE GIFTING SOLUTIONS
-  // ==========================================
-  {
-    id: 'gifting-corporate-kits',
-    title: 'Corporate Gifting Solutions',
-    subtitle: 'Thoughtful Gifts That Strengthen Business Relationships',
-    category: 'corporate-gifting',
-    categoryLabel: 'Corporate Gifting Solutions',
-    badge: 'Custom Branded Hampers',
-    badgeColor: 'brand',
-    isPriority: false,
-    image: '/images/standee.jpg',
-    description:
-      'Customized employee joining kits, welcome hampers, festive gift boxes, and bespoke merchandise that leave an enduring impression.',
-    metrics: [
-      { label: 'Welcome Kits', value: 'New Hire Onboarding' },
-      { label: 'Festive Boxes', value: 'Diwali & New Year Hampers' },
-      { label: 'Merchandise', value: 'Custom Tech & Apparel' },
-      { label: 'Fulfillment', value: 'Doorstep Courier Delivery' },
-    ],
-    specs: {
-      reach: 'Employees, VIP clients, and conference attendees',
-      availableMediums: [
-        'Welcome Kits & Employee Joining Kits',
-        'Festive Gift Hampers',
-        'Customized Tech & Apparel Merchandise',
-        'Event & Conference Delegate Gifts',
-      ],
-      coreBenefits: [
-        'Custom laser engraving and luxury unboxing packaging',
-        'Curated selection of high-utility premium products',
-        'Bulk fulfillment and doorstep shipping across India',
-      ],
-    },
-    link: '/contact',
-    ctaText: 'Request Gifting Catalogue',
   },
 ];
