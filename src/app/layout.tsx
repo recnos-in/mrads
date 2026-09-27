@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
 import { Inter, Fraunces } from 'next/font/google';
+import { siteUrl } from '@/lib/site';
 import '../styles/tailwind.css';
 
 const inter = Inter({
@@ -23,10 +24,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://mr-ads.in'),
-  title: 'Mr. Ads (MR) — Hyperlocal Advertising Partner | Display, Outdoor, Offline & Digital',
+  metadataBase: new URL(siteUrl),
+  title: 'Hyperlocal Advertising Partner — Display, Outdoor & Digital | Mr. Ads',
   description:
-    'Mr. Ads connects brands with the right local audience through restaurant, apartment, corporate, mall & fitness displays, moving media, offline distribution, print & creative, and website & AI solutions. Request a media plan.',
+    'Mr. Ads connects brands with the right local audience through in-venue displays, moving media, offline distribution, print and AI solutions. Request a media plan.',
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', type: 'image/x-icon' },
@@ -52,13 +56,24 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
     name: 'Mr. Ads (MR)',
+    url: siteUrl,
     description:
       'Hyperlocal Advertising: Display Advertising, Advertising on the Move, Offline Distribution, Print & Creative, Website & AI Solutions.',
     telephone: '+91 96865 44644',
     email: 'knowus@mr-ads.in',
     slogan: 'Your Hyperlocal Advertising Partner',
+  };
+
+  const websiteLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    name: 'Mr. Ads (MR)',
+    url: siteUrl,
+    publisher: { '@id': `${siteUrl}/#organization` },
   };
 
   return (
@@ -79,6 +94,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
         />
       </head>
       <body className={inter.className}>{children}</body>

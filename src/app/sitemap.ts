@@ -1,11 +1,22 @@
 import { MetadataRoute } from 'next';
+import { siteUrl } from '@/lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mr-ads.in';
-  const routes = ['', '/about', '/locations', '/pricing', '/contact'];
+  const routes = [
+    '',
+    '/about',
+    '/solutions',
+    '/digital',
+    '/locations',
+    '/offline-print',
+    '/advertising-on-the-move',
+    '/print-creative',
+    '/pricing',
+    '/contact',
+  ];
 
   return routes.map((route) => ({
-    url: `${baseUrl}${route}`,
+    url: `${siteUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: route === '' ? 1.0 : 0.8,

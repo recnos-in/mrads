@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import TargetShell from '@/components/TargetShell';
 import Hero from '@/components/hero/Hero';
 import PresenceSection from '@/components/landing/PresenceSection';
@@ -6,6 +7,10 @@ import AdvantageSection from '@/components/landing/AdvantageSection';
 import WhySection from '@/components/landing/WhySection';
 import DigitalSection from '@/components/landing/DigitalSection';
 import FinalCta from '@/components/FinalCta';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
   return (

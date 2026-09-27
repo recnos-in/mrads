@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import type { Metadata } from 'next';
 import TargetShell from '@/components/TargetShell';
 import { phoneText, phoneTel, contactEmail, contactMailto } from '@/components/SiteHeader';
 import Reveal from '@/components/ui/Reveal';

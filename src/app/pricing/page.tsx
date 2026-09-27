@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import type { Metadata } from 'next';
 import { useRouter } from 'next/navigation';
 import TargetShell from '@/components/TargetShell';
 import PageHero from '@/components/PageHero';
