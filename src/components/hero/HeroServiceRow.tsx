@@ -50,35 +50,29 @@ export default function HeroServiceRow() {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
-    const SPEED = 0.6; // px per frame (~36px/s at 60fps)
-    const RESUME_DELAY = 2500; // pause after a touch, then keep rotating
+    const SPEED = 36; // px per second
+    const RESUME_DELAY = 1200; // pause briefly after a gesture, then keep rotating
     let frame = 0;
     let resumeTimer: number | undefined;
     let activePointers = 0;
-    let paused = false;
     let last = performance.now();
+    // iOS Safari can expose scrollLeft as whole pixels. Keep the fractional
+    // distance here so sub-pixel animation frames still add up to movement.
+    let pendingDistance = 0;
+    // Only a genuine swipe/hold interaction pauses the loop. A plain tap or a
+    // ghost pointerdown (which iOS Safari can fire without ever sending the
+    // matching up event) must never be able to stop the rotation.
+    let touchedSinceDown = false;
 
-    const hold = () => {
-      paused = true;
+    // Resume unconditionally: the loop is time-based, so it simply picks up
+    // wherever the user's swipe left it. Never depend on a matching "up"
+    // event or on pointer/hover state to restart.
+    const scheduleResume = () => {
       if (resumeTimer !== undefined) window.clearTimeout(resumeTimer);
-    };
-    const resume = () => {
-      paused = false;
-      last = performance.now();
-    };
-    // iOS Safari does not always deliver touchend/pointerup after a gesture,
-    // so never rely on the "up" event alone to restart the loop.
-    const resumeLater = () => {
-      if (resumeTimer !== undefined) window.clearTimeout(resumeTimer);
-      resumeTimer = window.setTimeout(resume, RESUME_DELAY);
-    };
-    const handleDown = () => {
-      activePointers += 1;
-      hold();
-    };
-    const handleUp = () => {
-      activePointers = Math.max(0, activePointers - 1);
-      if (activePointers === 0) resumeLater();
+      resumeTimer = window.setTimeout(() => {
+        activePointers = 0;
+        pendingDistance = 0;
+      }, RESUME_DELAY);
     };
 
     const step = (now: number) => {
@@ -86,12 +80,18 @@ export default function HeroServiceRow() {
       last = now;
 
       const loopWidth = el.scrollWidth / 2; // track holds two full copies
-      if (loopWidth > 0 && !paused && activePointers === 0) {
-        let next = el.scrollLeft + SPEED * 60 * dt;
-        // Once the first copy has scrolled past, jump back one copy width.
-        // Both copies are identical, so the jump is visually invisible.
-        if (next >= loopWidth) next -= loopWidth;
-        el.scrollLeft = next;
+      if (loopWidth > 0 && activePointers === 0) {
+        pendingDistance += SPEED * dt;
+        const wholePixels = Math.floor(pendingDistance);
+
+        if (wholePixels > 0) {
+          let next = el.scrollLeft + wholePixels;
+          pendingDistance -= wholePixels;
+          // Once the first copy has scrolled past, jump back one copy width.
+          // Both copies are identical, so the jump is visually invisible.
+          if (next >= loopWidth) next -= loopWidth;
+          el.scrollLeft = next;
+        }
       }
 
       frame = requestAnimationFrame(step);
@@ -99,27 +99,58 @@ export default function HeroServiceRow() {
 
     frame = requestAnimationFrame(step);
 
+    // Pointer events cover mouse + touch. touchstart is also wired directly
+    // because iOS Safari sometimes fires it without the pointer events.
+    const handleDown = () => {
+      activePointers += 1;
+      touchedSinceDown = false;
+      // Start the fallback now because iOS may omit every matching end event.
+      scheduleResume();
+    };
+    const handleMove = () => {
+      touchedSinceDown = true;
+      // Keep the pause measured from the latest movement in a longer swipe.
+      scheduleResume();
+    };
+    const handleUp = () => {
+      // A tap (no movement) should not stall the rotation at all.
+      if (touchedSinceDown) scheduleResume();
+      else activePointers = Math.max(0, activePointers - 1);
+      touchedSinceDown = false;
+    };
+    const forceRelease = () => {
+      touchedSinceDown = false;
+      scheduleResume();
+    };
+
     el.addEventListener('pointerdown', handleDown);
+    el.addEventListener('pointermove', handleMove);
     el.addEventListener('pointerup', handleUp);
-    el.addEventListener('pointercancel', handleUp);
-    el.addEventListener('mouseenter', hold);
-    el.addEventListener('mouseleave', resume);
-    // Catch touches the pointer events above may never close out.
-    window.addEventListener('touchend', handleUp, { passive: true });
-    window.addEventListener('touchcancel', handleUp, { passive: true });
-    window.addEventListener('blur', resume);
+    el.addEventListener('pointercancel', forceRelease);
+    el.addEventListener('touchstart', handleDown, { passive: true });
+    el.addEventListener('touchmove', handleMove, { passive: true });
+    el.addEventListener('touchend', handleUp, { passive: true });
+    el.addEventListener('touchcancel', forceRelease, { passive: true });
+    // Catch any gesture that ends outside the track, and any event iOS fails
+    // to deliver on the element at all.
+    window.addEventListener('pointerup', forceRelease);
+    window.addEventListener('touchend', forceRelease, { passive: true });
+    window.addEventListener('touchcancel', forceRelease, { passive: true });
 
     return () => {
       cancelAnimationFrame(frame);
       if (resumeTimer !== undefined) window.clearTimeout(resumeTimer);
       el.removeEventListener('pointerdown', handleDown);
+      el.removeEventListener('pointermove', handleMove);
       el.removeEventListener('pointerup', handleUp);
-      el.removeEventListener('pointercancel', handleUp);
-      el.removeEventListener('mouseenter', hold);
-      el.removeEventListener('mouseleave', resume);
-      window.removeEventListener('touchend', handleUp);
-      window.removeEventListener('touchcancel', handleUp);
-      window.removeEventListener('blur', resume);
+      el.removeEventListener('pointercancel', forceRelease);
+      el.removeEventListener('touchstart', handleDown);
+      el.removeEventListener('touchmove', handleMove);
+      el.removeEventListener('touchend', handleUp);
+      el.removeEventListener('touchcancel', forceRelease);
+      window.removeEventListener('pointerup', forceRelease);
+      window.removeEventListener('touchend', forceRelease);
+      window.removeEventListener('touchcancel', forceRelease);
     };
   }, []);
 
