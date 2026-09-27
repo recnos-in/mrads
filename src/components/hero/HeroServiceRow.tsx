@@ -51,16 +51,34 @@ export default function HeroServiceRow() {
     if (prefersReducedMotion) return;
 
     const SPEED = 0.6; // px per frame (~36px/s at 60fps)
+    const RESUME_DELAY = 2500; // pause after a touch, then keep rotating
     let frame = 0;
+    let resumeTimer: number | undefined;
+    let activePointers = 0;
     let paused = false;
     let last = performance.now();
 
-    const pause = () => {
+    const hold = () => {
       paused = true;
+      if (resumeTimer !== undefined) window.clearTimeout(resumeTimer);
     };
     const resume = () => {
       paused = false;
       last = performance.now();
+    };
+    // iOS Safari does not always deliver touchend/pointerup after a gesture,
+    // so never rely on the "up" event alone to restart the loop.
+    const resumeLater = () => {
+      if (resumeTimer !== undefined) window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(resume, RESUME_DELAY);
+    };
+    const handleDown = () => {
+      activePointers += 1;
+      hold();
+    };
+    const handleUp = () => {
+      activePointers = Math.max(0, activePointers - 1);
+      if (activePointers === 0) resumeLater();
     };
 
     const step = (now: number) => {
@@ -68,14 +86,12 @@ export default function HeroServiceRow() {
       last = now;
 
       const loopWidth = el.scrollWidth / 2; // track holds two full copies
-      if (loopWidth > 0 && !paused && el.scrollLeft > 0) {
+      if (loopWidth > 0 && !paused && activePointers === 0) {
         let next = el.scrollLeft + SPEED * 60 * dt;
         // Once the first copy has scrolled past, jump back one copy width.
         // Both copies are identical, so the jump is visually invisible.
         if (next >= loopWidth) next -= loopWidth;
         el.scrollLeft = next;
-      } else if (!paused && el.scrollLeft <= 0) {
-        el.scrollLeft = 1;
       }
 
       frame = requestAnimationFrame(step);
@@ -83,23 +99,27 @@ export default function HeroServiceRow() {
 
     frame = requestAnimationFrame(step);
 
-    el.addEventListener('pointerdown', pause);
-    el.addEventListener('pointerup', resume);
-    el.addEventListener('pointercancel', resume);
-    el.addEventListener('touchstart', pause, { passive: true });
-    el.addEventListener('touchend', resume, { passive: true });
-    el.addEventListener('mouseenter', pause);
+    el.addEventListener('pointerdown', handleDown);
+    el.addEventListener('pointerup', handleUp);
+    el.addEventListener('pointercancel', handleUp);
+    el.addEventListener('mouseenter', hold);
     el.addEventListener('mouseleave', resume);
+    // Catch touches the pointer events above may never close out.
+    window.addEventListener('touchend', handleUp, { passive: true });
+    window.addEventListener('touchcancel', handleUp, { passive: true });
+    window.addEventListener('blur', resume);
 
     return () => {
       cancelAnimationFrame(frame);
-      el.removeEventListener('pointerdown', pause);
-      el.removeEventListener('pointerup', resume);
-      el.removeEventListener('pointercancel', resume);
-      el.removeEventListener('touchstart', pause);
-      el.removeEventListener('touchend', resume);
-      el.removeEventListener('mouseenter', pause);
+      if (resumeTimer !== undefined) window.clearTimeout(resumeTimer);
+      el.removeEventListener('pointerdown', handleDown);
+      el.removeEventListener('pointerup', handleUp);
+      el.removeEventListener('pointercancel', handleUp);
+      el.removeEventListener('mouseenter', hold);
       el.removeEventListener('mouseleave', resume);
+      window.removeEventListener('touchend', handleUp);
+      window.removeEventListener('touchcancel', handleUp);
+      window.removeEventListener('blur', resume);
     };
   }, []);
 
